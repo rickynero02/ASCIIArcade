@@ -1,11 +1,11 @@
-#include "entities/player.hpp"
+#include "maps/map.hpp"
 
-int main(int, char**) {
+int main() { 
     initscr();
-    
-    Player p(10, 11);
-    printw("Health: %d", p.getHealth());
+    cbreak();
+
     refresh();
+    Map m;
 
     getch();
     endwin();

@@ -11,10 +11,14 @@ find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 
 add_subdirectory(entities)
+add_subdirectory(maps)
 
 add_executable(ASCIIArcade main.cpp)
 target_link_libraries(ASCIIArcade ${CURSES_LIBRARIES})
+
 target_link_libraries(ASCIIArcade entities)
 add_dependencies(ASCIIArcade entities)
 
+target_link_libraries(ASCIIArcade maps)
+add_dependencies(ASCIIArcade maps)
 
