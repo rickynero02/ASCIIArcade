@@ -16,3 +16,11 @@ Player::Player(int x, int y) : Entity() {
 void Player::move(Position pos) {
 
 }
+
+void Player::setHasKey(bool key) {
+    has_key = key;
+}
+
+bool Player::getHasKey() {
+    return has_key;
+}
