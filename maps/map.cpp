@@ -30,5 +30,5 @@ void Map::createDoors() {
 }
 
 Map::~Map() { 
-    delwin(win);
+    delwin(win);    //distruttore di memoria allocata 
 }
