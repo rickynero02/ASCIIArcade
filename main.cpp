@@ -1,13 +1,6 @@
-#include "maps/map.hpp"
+#include "game/game.hpp"
 
 int main() { 
-    initscr();
-    cbreak();
-    noecho();
-
-    refresh();
-    Map m;
-
-    getch();
-    endwin();
+    Game g;
+    g.run();
 }
