@@ -12,6 +12,7 @@ include_directories(${CURSES_INCLUDE_DIR})
 
 add_subdirectory(entities)
 add_subdirectory(maps)
+add_subdirectory(game)
 
 add_executable(ASCIIArcade main.cpp)
 target_link_libraries(ASCIIArcade ${CURSES_LIBRARIES})
@@ -21,4 +22,8 @@ add_dependencies(ASCIIArcade entities)
 
 target_link_libraries(ASCIIArcade maps)
 add_dependencies(ASCIIArcade maps)
+
+target_link_libraries(ASCIIArcade game)
+add_dependencies(ASCIIArcade game)
+
 
