@@ -3,6 +3,7 @@
 int main() { 
     initscr();
     cbreak();
+    noecho();
 
     refresh();
     Map m;
