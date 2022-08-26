@@ -5,6 +5,9 @@
 
 Map::Map() { 
     win = newwin(height, width, start_y, start_x);
+}
+
+void Map::show() {
     wborder(win, '|', '|', '-', '-', '+', '+', '+', '+');
     createWalls();
     createDoors();
@@ -64,7 +67,7 @@ void Map::createWalls() {
             for(int i = 68; i >= 29; i--){
                 mvwprintw(win, m, i, "%c", '-');
             }
-            int k = (abs(m - m2) < 5) ? 25 : m2;
+            int k = (abs(m - m2) <= 5) ? 25 : m2;
             for(int i = 1; i <= 40; i++){
                 mvwprintw(win, k, i, "%c", '-'); 
             }

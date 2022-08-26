@@ -17,4 +17,6 @@ private:
 public:
     Map();
     ~Map();
+
+    void show();
 };
