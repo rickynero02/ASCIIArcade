@@ -54,6 +54,7 @@ int Menu::show() {
 				highlight++;
 				break;
 			case 10:
+				wclear(menuwin);
 				return highlight;
 		}
 
