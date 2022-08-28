@@ -14,6 +14,7 @@ add_subdirectory(entities)
 add_subdirectory(maps)
 add_subdirectory(game)
 
+add_dependencies(maps entities)
 add_dependencies(game maps)
 
 add_executable(ASCIIArcade main.cpp)

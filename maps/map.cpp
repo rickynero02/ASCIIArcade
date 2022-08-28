@@ -1,10 +1,20 @@
 #include "map.hpp"
+#include "../entities/player.hpp"
 #include <ctime>
 #include <cstdlib>
 #include <ncurses.h>
 
-Map::Map() { 
+Map::Map(State* init) { 
     win = newwin(height, width, start_y, start_x);
+    //Se non passo uno stato nella creazione della mappa allora lo creo io
+    // altrimenti uso quello passato come parametro
+    if (init != nullptr) {
+        state = init;
+    } else {
+        state = new State;
+        //Crea il player appena sopra la porta di ingresso
+        state->player = new Player(15, height-2); 
+    }
 }
 
 void Map::show() {
@@ -12,6 +22,7 @@ void Map::show() {
     createWalls();
     createDoors();
     wrefresh(win);
+    updateState();
 }
 
 void Map::createWalls() {
@@ -75,6 +86,13 @@ void Map::createWalls() {
     }
 }
 
+//Aggiorna lo stato della mappa
+void Map::updateState() {
+    Position playerPos = state->player->getPosition();
+    int x = playerPos.x, y = playerPos.y;
+    mvwprintw(win, y, x, "%c", state->player->getIcon());
+    wrefresh(win);
+}
 
 void Map::createDoors() {
     mvwprintw(win, 0, 10, "XXXXXXXXX");                                        
@@ -83,6 +101,17 @@ void Map::createDoors() {
     }
 }
 
+//Restituisce la finestra di gioco
+WINDOW* Map::getWindow() {
+    return win;
+}
+
+//Restituisce lo stato della mappa
+State* Map::getState() {
+    return state;
+}
+
 Map::~Map() { 
+    delete state;
     delwin(win);
 }
