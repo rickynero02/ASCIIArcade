@@ -31,7 +31,7 @@ void Game::run() {
 void Game::play() {
     WINDOW* mapwin = current_map->getWindow();
     State* state = current_map->getState();
-    Player* p = state->player;
+    Player* p = state->getPlayer();
 
     int ch;
 

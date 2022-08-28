@@ -8,13 +8,7 @@ Map::Map(State* init) {
     win = newwin(height, width, start_y, start_x);
     //Se non passo uno stato nella creazione della mappa allora lo creo io
     // altrimenti uso quello passato come parametro
-    if (init != nullptr) {
-        state = init;
-    } else {
-        state = new State;
-        //Crea il player appena sopra la porta di ingresso
-        state->player = new Player(15, height-2); 
-    }
+    state = (init != nullptr) ? init : new State();
 }
 
 void Map::show() {
@@ -88,10 +82,12 @@ void Map::createWalls() {
 
 //Aggiorna lo stato della mappa
 void Map::updateState() {
-    Position playerPos = state->player->getPosition();
+    Player* p = state->getPlayer();
+    Position playerPos = p->getPosition();
     int x = playerPos.x, y = playerPos.y;
-    mvwprintw(win, y, x, "%c", state->player->getIcon());
+    mvwprintw(win, y, x, "%c", p->getIcon());
     wrefresh(win);
+    state->show();
 }
 
 void Map::createDoors() {

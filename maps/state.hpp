@@ -2,10 +2,16 @@
 #include "../entities/player.hpp"
 
 //Rappresenta lo stato della mappa
-struct State {
-    Player *player;
+class State {
 
-    ~State() {
-        delete player;
-    }
+private:
+    Player *player;
+    WINDOW *win;
+
+public:
+    State();
+    ~State();
+
+    Player *getPlayer();
+    void show();
 };
