@@ -10,11 +10,15 @@ Player::Player(int x, int y) : Entity() {
     damage = 2;
     icon = 'P';
     bullet_icon = '-';
-    win = newwin(1, 1, 0, 0);
 }
 
-void Player::move(Position pos) {
-
+void Player::move(WINDOW* win, Position pos) {
+    //Prendo il carattere nella posizione in cui mi voglio muovere
+    //Se ho spazio mi muovo altrimenti no
+    int ch = mvwinch(win, pos.y, pos.x); 
+    if (ch == ' ') {
+        position = pos;
+    }
 }
 
 void Player::setHasKey(bool key) {

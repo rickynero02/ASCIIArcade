@@ -1,5 +1,6 @@
 #pragma once
 #include "object.hpp"
+#include <ncurses.h>
 
 class Entity : public Object {
     
@@ -18,5 +19,5 @@ public:
     void setBulletIcon(char set); //imposta aspetto proiettile
     char getBulletIcon();
 
-    virtual void move(Position pos) = 0;
+    virtual void move(WINDOW* win, Position pos) = 0;
 };
