@@ -5,6 +5,7 @@ class Game {
 
 private:
     Map* current_map;
+    void play();
 
 public:
     Game();
