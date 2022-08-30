@@ -13,6 +13,10 @@ private:
 
     void createWalls();
     void createDoors();
+    
+    void createArtifact();
+
+    //void createNemici();
 
 public:
     Map();
