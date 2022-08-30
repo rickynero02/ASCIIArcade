@@ -1,15 +1,29 @@
 #pragma once
 
-typedef struct _position {
-    int x, y;
-} Position;
+#include <ncurses.h>
+
+class State;
 
 class Object {
+
 protected:
-    Position position;
+    int x, y;
     char icon;
+    WINDOW* container;
 
 public:
-    Position getPosition() { return position; }
-    const char getIcon() { return icon; }
+    Object(WINDOW *w, int x, int y, char icon) : 
+        x(x), y(y), icon(icon), container(w) {}
+
+    char getIcon() const { return icon; }
+    int getX() const { return x; }
+    int getY() const { return y; }
+
+    virtual ~Object() {}
+
+    virtual void update(State* s, int n) {}
+
+    virtual void draw() {
+        mvwaddch(container, y, x, icon);
+    }
 };

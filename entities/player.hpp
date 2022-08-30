@@ -1,17 +1,19 @@
 #pragma once
-#include <ncurses.h>
+
 #include "entity.hpp"
 
-class Player : public Entity {
+class Player : public ActiveEntity {
 
 private:
-    int max_health;
-    bool has_key = false;
+    bool hasKey;
+    void updatePosition();    
 
 public:
-    Player(int x, int y);
+    Player(WINDOW* w, int x, int y) 
+        : ActiveEntity(w, x, y, '@', 
+        direction::xaxis, verse::positive, 20, 2), hasKey(false) {}
+    void update(State*, int) override;
 
-    void move(WINDOW* win, Position pos) override;
-    void setHasKey(bool key);
-    bool getHasKey();
+    void setHasKey(bool hasKey) { hasKey = hasKey; }
+    bool getHasKey() const { return hasKey; }
 };

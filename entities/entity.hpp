@@ -1,23 +1,43 @@
 #pragma once
+
 #include "object.hpp"
-#include <ncurses.h>
+#include "state.hpp"
+
+enum direction {
+    xaxis, yaxis
+};
+
+enum verse {
+    positive = 1, negative = -1
+};
 
 class Entity : public Object {
-    
+
 protected:
-    int damage; 
-    int health; 
-    char bullet_icon;
+    direction dir;
+    verse v;
 
 public:
-    void setHealth(int set);    //imposta salute
-    int getHealth();            //restituisce valore salute 
+    Entity(WINDOW* w, int x, int y, char icon, direction dir, verse v) 
+        : Object(w, x, y, icon), dir(dir), v(v) {}
+    
+    virtual ~Entity() {}
+};
 
-    void setDamage(int set);    //imposta danno
-    int getDamage();            //restituisce valore danno
+class ActiveEntity : public Entity {
 
-    void setBulletIcon(char set); //imposta aspetto proiettile
-    char getBulletIcon();
+protected:
+    int health, damage;
 
-    virtual void move(WINDOW* win, Position pos) = 0;
+public:
+    ActiveEntity(WINDOW* w, int x, int y, char icon, 
+        direction dir, verse v, int health, int damage)
+        : Entity(w, x, y, icon, dir, v), health(health), damage(damage) {}
+
+    virtual ~ActiveEntity() {}
+
+    int getHealth() const { return health; }
+    int getDamage() const { return damage; }
+    void setHealth(int h) { health = h; }
+    void setDamage(int d) { damage = d; }
 };

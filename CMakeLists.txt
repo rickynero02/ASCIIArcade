@@ -4,7 +4,7 @@ project(ASCIIArcade VERSION 0.1.0)
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Curses REQUIRED)
@@ -14,11 +14,7 @@ add_subdirectory(entities)
 add_subdirectory(maps)
 add_subdirectory(game)
 
-add_dependencies(maps entities)
-add_dependencies(game maps)
-
 add_executable(ASCIIArcade main.cpp)
-target_link_libraries(ASCIIArcade ${CURSES_LIBRARIES})
 
 target_link_libraries(ASCIIArcade entities)
 add_dependencies(ASCIIArcade entities)

@@ -1,30 +1,54 @@
-#include <string>
-#include <ncurses.h>
+
 #include "player.hpp"
+#include "bullet.hpp"
 
-Player::Player(int x, int y) : Entity() {
-    position.x = x;
-    position.y = y;
-    health = 20;
-    max_health = 20;
-    damage = 2;
-    icon = 'P';
-    bullet_icon = '-';
-}
+void Player::update(State* state, int ch) {
+    mvwaddch(container, y, x, ' ');
+    switch (ch) {
+        case KEY_LEFT:
+            v = verse::negative;
+            dir = direction::xaxis;
+            updatePosition();
+            break;
+        case KEY_RIGHT:
+            v = verse::positive;
+            dir = direction::xaxis;
+            updatePosition();
+            break;
+        case KEY_UP:
+            v = verse::negative;
+            dir = direction::yaxis;
+            updatePosition();
+            break;
+        case KEY_DOWN:
+            v = verse::positive;
+            dir = direction::yaxis;
+            updatePosition();
+            break;
+        case 'f':
+            int bpx = (dir == direction::xaxis) ? (x+v) : x;
+            int bpy = (dir == direction::yaxis) ? (y+v) : y;
 
-void Player::move(WINDOW* win, Position pos) {
-    //Prendo il carattere nella posizione in cui mi voglio muovere
-    //Se ho spazio mi muovo altrimenti no
-    int ch = mvwinch(win, pos.y, pos.x); 
-    if (ch == ' ') {
-        position = pos;
+            int posch = mvwinch(container, bpy, bpx);
+            if (posch == ' ') {
+                auto bullet = std::make_shared<Bullet>(container, bpx, bpy, '+', dir, v);
+                state->add(bullet);
+            }
+            break;
     }
 }
 
-void Player::setHasKey(bool key) {
-    has_key = key;
-}
+void Player::updatePosition() {
+    int nx = x, ny = y;
+    if (dir == direction::xaxis) {
+        nx += v;
+    } else {
+        ny += v;
+    }
 
-bool Player::getHasKey() {
-    return has_key;
+    int posch = mvwinch(container, ny, nx);
+    if (posch == ' ') {
+        x = nx;
+        y = ny;
+    }
 }

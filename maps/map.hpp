@@ -1,6 +1,5 @@
 #pragma once
 #include <ncurses.h>
-#include "state.hpp"
 
 class Map {
 
@@ -10,19 +9,15 @@ private:
     const int start_y = 3;
     const int start_x = 12;
 
-    State* state;
     WINDOW *win;
 
     void createWalls();
     void createDoors();
 
 public:
-    Map(State *state = nullptr);
+    Map();
     ~Map();
 
     void show();
-    void updateState();
-
-    State* getState();
     WINDOW * getWindow();
 };
