@@ -1,6 +1,8 @@
 #include "menu.hpp"
 
 void Menu::printBanner() {
+	
+	attron(COLOR_PAIR(1));
 	printw("      ___           ___           ___                             ");
 	mvprintw(1, 0, "     /\\  \\         /\\__\\         /\\__\\                            ");
 	mvprintw(2, 0, "    /::\\  \\       /:/ _/_       /:/  /        ___         ___     ");
@@ -24,6 +26,8 @@ void Menu::printBanner() {
 	mvprintw(19, 0, "  \\:\\  \\       \\:\\~~\\      \\:\\/:/  /    \\:\\  \\       \\:\\/:/  /   \\:\\/:/  /  ");
 	mvprintw(20, 0, "   \\:\\__\\       \\:\\__\\      \\::/  /      \\:\\__\\       \\::/  /     \\::/  /   ");
 	mvprintw(21, 0, "    \\/__/        \\/__/       \\/__/        \\/__/        \\/__/       \\/__/    ");
+	attroff(COLOR_PAIR(1));
+
 	refresh();
 }
 

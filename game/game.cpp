@@ -88,6 +88,7 @@ void Game::showCredits()
     if (!has_colors()) {
         printw("IN SEGUITO AD UN CONTROLLO, \nSI E' VERIFICATO CHE IL SUO TERMINALE NON SOPPORTA I COLORI");
     } else {
+        
         wattron(w, COLOR_PAIR(1));
         mvwprintw(w, 3, 50, "ASCIIArcade GAME");
         mvwprintw(w, 4, 53, "2022-2023");
@@ -97,6 +98,7 @@ void Game::showCredits()
         mvwprintw(w, 21, 20, "Alma Matter");
         mvwprintw(w, 22, 54, "Bologna");
         wattroff(w, COLOR_PAIR(1));
+        
         wrefresh(w);
     }
 

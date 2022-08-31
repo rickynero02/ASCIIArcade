@@ -20,8 +20,8 @@ Map::Map(std::shared_ptr<Player> player)
 
     val_y1 = rand() % 3 + 2; 
     val_y2 = ((rand() % 2) == 0) ? 26 : 27;
-    val_x1 = rand() % 22 + 2;
-    val_x2 = rand() % 15 + 2;
+    val_x1 = rand() % 11 + 2;
+    val_x2 = rand() % 13 + 10;
 
     x = rand() % 10 + 11;
     y = rand() % 10 + 11;
