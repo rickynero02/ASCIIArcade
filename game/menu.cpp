@@ -62,14 +62,14 @@ int Menu::show() {
 			highlight = 0;
 		}
 
-		if (highlight > 2) {
-			highlight = 2;
+		if (highlight > 3) {
+			highlight = 3;
 		}
 	}
 }
 
 void Menu::printMenu() {
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 4; i++) {
 		if (i == highlight) {
 			wattron(menuwin, A_REVERSE);
 		}

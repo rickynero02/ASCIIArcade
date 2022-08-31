@@ -1,10 +1,11 @@
 #pragma once
 #include "../maps/map.hpp"
+#include <memory>
 
 class Game {
 
 private:
-    Map* current_map;
+    std::shared_ptr<Map> current_map;
     void play();
 
     void showCredits();
@@ -14,5 +15,4 @@ public:
     Game();
     ~Game();
     void run();
-
 };

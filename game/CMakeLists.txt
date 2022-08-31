@@ -1,5 +1,5 @@
 
-add_library(game menu.cpp game.cpp info.cpp)
+add_library(game menu.cpp game.cpp)
 add_dependencies(game maps)
 add_dependencies(game entities)
 

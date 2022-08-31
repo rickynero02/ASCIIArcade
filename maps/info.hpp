@@ -1,15 +1,16 @@
 #pragma once
 
-#include "../entities/player.hpp"
+#include "../entities/state.hpp"
+#include <ncurses.h>
 
 class Info {
 
 private:
-    std::shared_ptr<Player> player;
+    std::shared_ptr<State> state;
     WINDOW* win;
 
 public:
-    Info(std::shared_ptr<Player> player) : player(player) {
+    Info(std::shared_ptr<State> s) : state(s) {
         win = newwin(8, 18, 25, 90);
         wborder(win, '|', '|', '-', '-', '+', '+', '+', '+');
     }
@@ -17,5 +18,5 @@ public:
     ~Info() {
         delwin(win);
     }
-    void updateInfo(int n);
+    void updateInfo();
 };

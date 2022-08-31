@@ -8,10 +8,11 @@ private:
     WINDOW *menuwin;
     int highlight;
 
-    const char* choices[3] = {
+    const char* choices[4] = {
         "Play", 
         "Instructions", 
-        "Credits"
+        "Credits", 
+        "Quit"
     };
 
     void printBanner();

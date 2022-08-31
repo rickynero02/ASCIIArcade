@@ -9,11 +9,16 @@ private:
     void updatePosition();    
 
 public:
-    Player(WINDOW* w, int x, int y) 
-        : ActiveEntity(w, x, y, '@', 
+    Player() : ActiveEntity(nullptr, 0, 0, '@', 
         direction::xaxis, verse::positive, 20, 2), hasKey(false) {}
     void update(State*, int) override;
 
     void setHasKey(bool hasKey) { hasKey = hasKey; }
     bool getHasKey() const { return hasKey; }
+
+    void setWindow(WINDOW* w) {
+        container = w;
+        x = 15;
+        y = 28;
+    }
 };
