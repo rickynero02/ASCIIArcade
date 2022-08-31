@@ -47,7 +47,7 @@ void Player::updatePosition() {
     }
 
     int posch = mvwinch(container, ny, nx);
-    if (posch == ' ') {
+    if (posch == ' ' || posch == '?') {
         x = nx;
         y = ny;
     }

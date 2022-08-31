@@ -18,10 +18,10 @@ Map::Map(std::shared_ptr<Player> player)
     info = std::make_unique<Info>(state);
     srand(time(NULL));
 
-    n1 = rand() % 3 + 1; 
-    n2 = 27;
-    m1 = rand() % 2 + 21; 
-    m2 = rand() % 62 + 6; 
+    val_y1 = rand() % 3 + 2; 
+    val_y2 = ((rand() % 2) == 0) ? 26 : 27;
+    val_x1 = rand() % 22 + 2;
+    val_x2 = rand() % 15 + 2;
 
     x = rand() % 10 + 11;
     y = rand() % 10 + 11;
@@ -43,18 +43,32 @@ void Map::updateState(int ch, int tick) {
 
 void Map::createArtifact()
 {
-    int Y, X;
+    int Y, X, YY, XX;
 
-    bool b = ((n1 + n2) % 2) == 0;
-    b = ((m1 + m2) % 2) == 0;
-    X = (b) ? m1 : m2;
-    Y = (b) ? n1 : n2;
+    bool b = ((val_y1 + val_y2) % 2) == 0;
+    bool t = ((val_x1 + val_x2) % 2) == 0;
 
-    auto a = std::make_shared<Artifact>(win, Y, X);
-    auto r = std::make_shared<Artifact>(win, X, Y);
+    X = (b) ? val_x1 : val_x2;
+    Y = (t) ? val_y1 : val_y2;
 
-    state->add(a);
-    state->add(r);
+    YY= (t) ? val_y2 : val_y1;
+    XX= (b) ? val_x2 : val_x1;
+
+    int posch = mvwinch(win, Y, X);
+    if (posch == ' ' && Y < 28 && X < 68 && X > 1 && Y > 1)
+    {
+        auto a = std::make_shared<Artifact>(win, X, Y, 
+            buff::health, buff_t::bonus);
+        state->add(a);
+    }
+
+    int posch2 = mvwinch(win, YY, XX);
+    if (posch2 == ' ' && YY < 28 && XX < 68 && YY > 1 && XX > 1 && YY!=XX)
+    {
+        auto r = std::make_shared<Artifact>(win, XX, YY, 
+            buff::damage, buff_t::bonus);
+        state->add(r);
+    }
 }
 
 void Map::show()
@@ -135,7 +149,7 @@ void Map::createWalls()
 
 void Map::createDoors()
 {
-    mvwprintw(win, 0, 10, "XXXXXXXXX");
+    mvwprintw(win, 0, 10, "OOOOOOOOO");
     for (int i = 10; i <= 19; i++) {
         mvwaddch(win, 29, i, ' ');
     }

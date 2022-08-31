@@ -14,7 +14,7 @@ private:
     const int start_y = 3;
     const int start_x = 12;
 
-    int n1, n2, m1, m2; //artefatti
+    int val_y1, val_x1, val_y2, val_x2; //artefatti
     int x, y, z;   //muri
 
     WINDOW *win;
