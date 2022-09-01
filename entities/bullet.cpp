@@ -1,5 +1,6 @@
 
 #include "bullet.hpp"
+#include "player.hpp"
 
 void Bullet::update(State* state, int t) {
     if (t == 10) {
@@ -13,11 +14,23 @@ void Bullet::update(State* state, int t) {
         }
 
         int ch = mvwinch(container, newy, newx);
-        if (ch == ' ') {
+        if (ch == ' ' || ch == '+' 
+            || ch == '*' || ch == owner->getIcon()) {
             x = newx;
             y = newy;
-        } else {
-            icon = ' ';
+            return;
         }
+
+        if (ch == '|' || ch == '-' || ch == '?' || ch == 'O') {
+            icon = ' ';
+            return;
+        }
+
+        auto hitted = (state->getPlayer()->getIcon() == ch) ?
+            state->getPlayer() : state->getEntity(newx, newy, ch);
+
+        hitted->setHealth(hitted->getHealth() - owner->getDamage());
+        icon = ' ';
     }
 }
+

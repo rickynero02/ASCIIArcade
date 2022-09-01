@@ -16,6 +16,8 @@ private:
 
     int val_y1, val_x1, val_y2, val_x2; //artefatti
     int x, y, z;   //muri
+    int val_Y1, val_Y2, val_X1, val_X2, casual_alt; // nemici
+
 
     WINDOW *win;
     std::shared_ptr<State> state;
@@ -24,6 +26,9 @@ private:
     void createWalls();
     void createDoors();
     void createArtifact();
+    void createBaseEnemy();
+    void createBossEenemy();
+    void createSingleArtifact(int, int);
 
 public:
     Map(std::shared_ptr<Player>);

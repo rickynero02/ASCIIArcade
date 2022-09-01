@@ -24,3 +24,16 @@ void State::clear() {
         return entity->getIcon() == ' ';
     });
 }
+
+std::shared_ptr<ActiveEntity> State::getEntity(int x, int y, char ch) {
+    std::shared_ptr<Object> found;
+    for (auto& entity : entities) {
+        int ex = entity->getX(), ey = entity->getY();
+        char icon = entity->getIcon();
+
+        if (ex == x && y == ey && icon == ch) {
+            found = entity;
+        }
+    }
+    return std::dynamic_pointer_cast<ActiveEntity> (found);
+}

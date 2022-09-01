@@ -5,15 +5,15 @@
 class Player : public ActiveEntity {
 
 private:
-    bool hasKey;
+    bool hasKey = false;
     void updatePosition();    
 
 public:
     Player() : ActiveEntity(nullptr, 0, 0, '@', 
-        direction::xaxis, verse::positive, 20, 2), hasKey(false) {}
+        direction::xaxis, verse::positive, 20, 2) {}
     void update(State*, int) override;
 
-    void setHasKey(bool hasKey) { hasKey = hasKey; }
+    void setHasKey(bool hk) { hasKey = hk; }
     bool getHasKey() const { return hasKey; }
 
     void setWindow(WINDOW* w) {

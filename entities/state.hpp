@@ -5,6 +5,7 @@
 
 class Object;
 class Player;
+class ActiveEntity;
 
 class State {
 
@@ -21,4 +22,5 @@ public:
 
     int size() { return entities.size(); }
     std::shared_ptr<Player> getPlayer() { return player; }
+    std::shared_ptr<ActiveEntity> getEntity(int, int, char);
 };

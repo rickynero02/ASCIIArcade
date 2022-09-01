@@ -1,10 +1,10 @@
 #include "artifact.hpp"
 #include "player.hpp"
 
-void Artifact::update(State* state, int t) {
+void Artifact::update(State* state, int tick) {
     auto p = state->getPlayer();
     int px = p->getX(), py = p->getY();
-    if (x == px && y == py && t == 1) {
+    if (x == px && y == py && tick == 1) {
         icon = ' ';
  
         if (b == buff::health) {

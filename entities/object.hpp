@@ -19,6 +19,8 @@ public:
     int getX() const { return x; }
     int getY() const { return y; }
 
+    void setIcon(char ch) { icon = ch; }
+
     virtual ~Object() {}
 
     virtual void update(State* s, int n) {}

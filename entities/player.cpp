@@ -31,7 +31,8 @@ void Player::update(State* state, int ch) {
 
             int posch = mvwinch(container, bpy, bpx);
             if (posch == ' ') {
-                auto bullet = std::make_shared<Bullet>(container, bpx, bpy, '+', dir, v);
+                auto bullet = std::make_shared<Bullet>(container, bpx, bpy, '+', dir, 
+                    v, state->getPlayer());
                 state->add(bullet);
             }
             break;
