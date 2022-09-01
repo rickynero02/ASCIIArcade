@@ -2,17 +2,20 @@
 
 #include "object.hpp"
 
-enum buff {
+enum buff
+{
     health,
     damage,
 };
 
-enum buff_t {
+enum buff_t
+{
     bonus = 1,
     malus = -1,
 };
 
-class Artifact : public Object {
+class Artifact : public Object
+{
 
 private:
     buff b;
@@ -22,8 +25,14 @@ private:
     const int damage_buff = 1;
 
 public:
-    Artifact(WINDOW* w, int x, int y, buff b, buff_t t) : 
-        Object(w, x, y, '?'), b(b), t(t) {}
+    Artifact(WINDOW *w, int x, int y, buff b, buff_t t) : Object(w, x, y, '?'), b(b), t(t) {}
 
-    void update(State* state, int t) override;
+    void update(State *state, int t) override;
+
+    void draw() override
+    {
+        wattron(container,COLOR_PAIR(2));
+        mvwaddch(container, y, x, icon);
+        wattroff(container,COLOR_PAIR(2));
+    }
 };
