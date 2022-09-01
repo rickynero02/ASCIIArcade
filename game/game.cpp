@@ -92,6 +92,7 @@ void Game::showCredits()
         wattron(w, COLOR_PAIR(1));
         mvwprintw(w, 3, 50, "ASCIIArcade GAME");
         mvwprintw(w, 4, 53, "2022-2023");
+        mvwprintw(w, 5, 33, "PER TORNARE AL MENU DA QUESTA SCHERMATA PREMI ENTER");
         mvwprintw(w, 10, 20, "Riccardo Nisidi");
         mvwprintw(w, 13, 20, "Bogdan Chirila");
         mvwprintw(w, 20, 20, "Progetto di Informatica I Anno Scolastico UNIBO");
@@ -130,7 +131,8 @@ void Game::showInfo()
         wattron(w, COLOR_PAIR(1));
         mvwprintw(w, 5, 20, "TASTI FRECCIA -SU-GIU-DESTRA-SINISTRA- : SPOSTAMENTO DEL GIOCATORE");
         mvwprintw(w, 7, 20, "F : SPARA");
-        mvwprintw(w, 9, 20, "PREMI UN TASTO QUALSIASI PER TORNARE AL MENU");
+        mvwprintw(w, 9, 20, "Q : TORNA AL MENU DURANTE IL GIOCO / INTERROMPI LA PARTITA");
+        mvwprintw(w, 11, 20, "PER TORNARE AL MENU DA QUESTA SCHERMATA PREMI ENTER");
         mvwprintw(w, 19, 20, "OBBIETTIVO : SUPERARE PIU LIVELLI POSSIBILI,");
         mvwprintw(w, 20, 20, "SCONFIGGI I NEMICI PER OTTENERE LE CHIAVI CHE TI PERMETTERANNO DI");
         mvwprintw(w, 21, 20, "APRIRE LE PORTE!");
