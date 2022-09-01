@@ -28,11 +28,4 @@ public:
     Artifact(WINDOW *w, int x, int y, buff b, buff_t t) : Object(w, x, y, '?'), b(b), t(t) {}
 
     void update(State *state, int t) override;
-
-    void draw() override
-    {
-        wattron(container,COLOR_PAIR(2));
-        mvwaddch(container, y, x, icon);
-        wattroff(container,COLOR_PAIR(2));
-    }
 };
