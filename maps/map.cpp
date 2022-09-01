@@ -49,8 +49,12 @@ void Map::updateState(int ch, int tick) {
 
     p->draw();
     state->drawAll();
-    wrefresh(win);
     info->updateInfo();
+
+    if (state->getPlayer()->getHasKey()) {
+        mvwprintw(win, 0, 10, "         ");
+    }
+    wrefresh(win);
 }
 
 void Map::createBossEenemy()
