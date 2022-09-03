@@ -53,6 +53,7 @@ void Map::updateState(int ch, int tick) {
 
     if (state->getPlayer()->getHasKey()) {
         mvwprintw(win, 0, 10, "         ");
+        isCleared = true;
     }
     wrefresh(win);
 }
@@ -67,7 +68,8 @@ void Map::createBossEenemy()
     int posch = mvwinch(win, y, x);
     if (posch == ' ' && y < 30 && x < 70 && x > 0 && y > 0)
     {
-        auto boss = std::make_shared<BossEnemy>(win, x, y, direction::xaxis, verse::negative);
+        auto boss = std::make_shared<BossEnemy>(win, x, y, 
+            direction::xaxis, verse::negative);
         state->add(boss);
     }
 }
@@ -98,14 +100,16 @@ void Map::createBaseEnemy()
     int posch = mvwinch(win, y1, x1);
     if (posch == ' ' && y1 < 29 && x1 < 69 && x1 > 0 && y1 > 0)
     {
-        auto n1 = std::make_shared<BaseEnemy>(win, x1, y1, direction::xaxis, verse::negative);
+        auto n1 = std::make_shared<BaseEnemy>(win, x1, y1, 
+            direction::xaxis, verse::negative);
         state->add(n1);
     }
 
     int posch2 = mvwinch(win, y2, x2);
     if (posch2 == ' ' && y2 < 29 && x2 < 69 && x2 > 0 && y2 > 0)
     {
-        auto n2 = std::make_shared<BaseEnemy>(win, x2, y2, direction::xaxis, verse::positive);
+        auto n2 = std::make_shared<BaseEnemy>(win, x2, y2, 
+            direction::xaxis, verse::positive);
         state->add(n2);
     }
 }
@@ -224,6 +228,20 @@ void Map::createDoors()
 
 WINDOW *Map::getWindow() {
     return win;
+}
+
+void Map::resetStatePlayer(std::shared_ptr<Player> player) {
+    state->setPlayer(player);
+    player->setWindow(win);
+}
+
+void Map::clearAll() {
+    wclear(win);
+    wrefresh(win);
+
+    clear();
+    refresh();
+    state->getPlayer().reset();
 }
 
 Map::~Map() {

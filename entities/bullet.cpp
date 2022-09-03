@@ -13,6 +13,11 @@ void Bullet::update(State* state, int t) {
             newy += v;
         }
 
+        if (newy == 0 || newy == 29) {
+            icon = ' ';
+            return;
+        }
+
         int ch = mvwinch(container, newy, newx);
         if (ch == ' ' || ch == '+' 
             || ch == '*' || ch == owner->getIcon()) {

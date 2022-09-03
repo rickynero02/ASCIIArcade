@@ -31,10 +31,13 @@ private:
     void createSingleArtifact(int, int);
 
 public:
+    bool isCleared = false;
     Map(std::shared_ptr<Player>);
     ~Map();
 
     void show();
     WINDOW * getWindow();
     void updateState(int, int);
+    void clearAll();
+    void resetStatePlayer(std::shared_ptr<Player> player);
 };

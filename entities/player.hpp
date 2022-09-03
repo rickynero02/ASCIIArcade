@@ -6,9 +6,12 @@ class Player : public ActiveEntity {
 
 private:
     bool hasKey = false;
-    void updatePosition();    
+    void updatePosition();
 
 public:
+    bool loadNextMap = false;
+    bool loadPreviousMap = false;
+
     Player() : ActiveEntity(nullptr, 0, 0, '@', 
         direction::xaxis, verse::positive, 20, 2) {}
     void update(State*, int) override;
@@ -18,7 +21,7 @@ public:
 
     void setWindow(WINDOW* w) {
         container = w;
-        x = 15;
-        y = 28;
+        x = (loadPreviousMap) ? 14 : 15;
+        y = (loadPreviousMap) ? 1 : 28 ;
     }
 };

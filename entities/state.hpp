@@ -22,5 +22,6 @@ public:
 
     int size() { return entities.size(); }
     std::shared_ptr<Player> getPlayer() { return player; }
+    void setPlayer(std::shared_ptr<Player> p) { player = p; }
     std::shared_ptr<ActiveEntity> getEntity(int, int, char);
 };

@@ -12,11 +12,11 @@ private:
 public:
     Info(std::shared_ptr<State> s) : state(s) {
         win = newwin(8, 18, 25, 90);
-        wborder(win, '|', '|', '-', '-', '+', '+', '+', '+');
     }
 
     ~Info() {
         delwin(win);
     }
+
     void updateInfo();
 };

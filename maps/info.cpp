@@ -3,6 +3,7 @@
 
 void Info::updateInfo()
 {
+    wborder(win, '|', '|', '-', '-', '+', '+', '+', '+');
     auto player = state->getPlayer();
     int x = player->getX();
     int y = player->getY();

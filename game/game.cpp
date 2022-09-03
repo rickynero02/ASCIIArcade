@@ -13,6 +13,10 @@ Game::Game()
 
     start_color();
     init_pair(1, COLOR_BLUE, COLOR_BLACK);
+
+    map_pos = -1;
+    last_map_pos = -1;
+    map_list.reserve(10);
 }
 
 void Game::run()
@@ -28,6 +32,11 @@ void Game::run()
 
     switch (val) {
     case 0:
+        map_list.clear();
+        map_pos = -1;
+        last_map_pos = -1;
+
+        player = std::make_shared<Player>();
         play();
         break;
     case 1:
@@ -41,29 +50,75 @@ void Game::run()
 
 void Game::play()
 {
-    auto player = std::make_shared<Player>();
-
-    current_map.reset();
-    current_map = std::make_shared<Map>(player);
-    current_map->show();
-
-    WINDOW *w = current_map->getWindow();
+    generateNewMap();
 
     int ch, tick = 1;
     while (1)
     {
-        ch = wgetch(w);
+        attron(COLOR_PAIR(1));
+        mvprintw(0, 0, "Current Level:");
+        attroff(COLOR_PAIR(1));
+        mvprintw(0, 20, "%3d", map_pos);
+        refresh();
+
+        ch = wgetch(current_win);
         if ((ch % A_CHARTEXT) == 'q') {
-            wclear(w);
-            wrefresh(w);
+            current_map->clearAll();
             run();
             break;
         }
 
         current_map->updateState(ch, tick);
+
+        if (player->loadNextMap) {
+            generateNewMap();
+        }
+
+        if (player->loadPreviousMap && map_pos > 0) {
+            generatePreviousMap();
+        } else {
+            player->loadPreviousMap = false;
+        }
+
         tick = (tick % 10) + 1;
         napms(10);
     }
+}
+
+void Game::generateNewMap() {
+    player->loadNextMap = false;
+    if (current_map != nullptr) {
+        current_map->clearAll();
+    }
+
+    bool isNew = last_map_pos == map_pos;
+    if (isNew) {
+        current_map = std::make_shared<Map>(player);
+        map_pos++;
+        last_map_pos++;
+        map_list[map_pos] = current_map;
+        player->setHasKey(false);
+    } else {
+        map_pos++;
+        current_map = map_list[map_pos];
+        current_map->resetStatePlayer(player);
+        player->setHasKey(current_map->isCleared);
+    } 
+
+    current_win = current_map->getWindow();
+    current_map->show();
+}
+
+void Game::generatePreviousMap() {
+    current_map->clearAll();
+    map_pos--;
+    current_map = map_list[map_pos];
+    current_win = current_map->getWindow();
+
+    current_map->resetStatePlayer(player);
+    player->setHasKey(true);
+    current_map->show();
+    player->loadPreviousMap = false;
 }
 
 Game::~Game()
@@ -95,6 +150,7 @@ void Game::showCredits()
         mvwprintw(w, 5, 33, "PER TORNARE AL MENU DA QUESTA SCHERMATA PREMI ENTER");
         mvwprintw(w, 10, 20, "Riccardo Nisidi");
         mvwprintw(w, 13, 20, "Bogdan Chirila");
+        mvwprintw(w, 16, 20, "Valerio Pio De Nicola");
         mvwprintw(w, 20, 20, "Progetto di Informatica I Anno Scolastico UNIBO");
         mvwprintw(w, 21, 20, "Alma Matter");
         mvwprintw(w, 22, 54, "Bologna");

@@ -4,6 +4,16 @@
 
 void Player::update(State* state, int ch) {
     mvwaddch(container, y, x, ' ');
+    if(y == 0) {
+        loadNextMap = true;
+        return;
+    }
+
+    if (y == 29) {
+        loadPreviousMap = true;
+        y = 28;
+        return;
+    }
     switch (ch) {
         case KEY_LEFT:
             v = verse::negative;
@@ -29,11 +39,13 @@ void Player::update(State* state, int ch) {
             int bpx = (dir == direction::xaxis) ? (x+v) : x;
             int bpy = (dir == direction::yaxis) ? (y+v) : y;
 
-            int posch = mvwinch(container, bpy, bpx);
-            if (posch == ' ') {
-                auto bullet = std::make_shared<Bullet>(container, bpx, bpy, '+', dir, 
-                    v, state->getPlayer());
-                state->add(bullet);
+            if (bpy != 0 && bpy != 29) {
+                int posch = mvwinch(container, bpy, bpx);
+                if (posch == ' ') {
+                    auto bullet = std::make_shared<Bullet>(container, bpx, bpy, '+', dir, 
+                        v, state->getPlayer());
+                    state->add(bullet);
+                }
             }
             break;
     }
