@@ -12,6 +12,7 @@ private:
     void play();
     void showCredits();
     void showInfo();
+    void showGameOver();
     
     void generateNewMap();
     void generatePreviousMap();

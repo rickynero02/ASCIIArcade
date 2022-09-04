@@ -3,7 +3,11 @@
 #include "bullet.hpp"
 
 void Player::update(State* state, int ch) {
-    mvwaddch(container, y, x, ' ');
+    if (health <= 0) {
+        isDead = true;
+        return;
+    }
+
     if(y == 0) {
         loadNextMap = true;
         return;
@@ -14,6 +18,7 @@ void Player::update(State* state, int ch) {
         y = 28;
         return;
     }
+    
     switch (ch) {
         case KEY_LEFT:
             v = verse::negative;
@@ -36,22 +41,13 @@ void Player::update(State* state, int ch) {
             updatePosition();
             break;
         case 'f':
-            int bpx = (dir == direction::xaxis) ? (x+v) : x;
-            int bpy = (dir == direction::yaxis) ? (y+v) : y;
-
-            if (bpy != 0 && bpy != 29) {
-                int posch = mvwinch(container, bpy, bpx);
-                if (posch == ' ') {
-                    auto bullet = std::make_shared<Bullet>(container, bpx, bpy, '+', dir, 
-                        v, state->getPlayer());
-                    state->add(bullet);
-                }
-            }
+            shoot(state, '+');
             break;
     }
 }
 
 void Player::updatePosition() {
+    mvwaddch(container, y, x, ' ');
     int nx = x, ny = y;
     if (dir == direction::xaxis) {
         nx += v;

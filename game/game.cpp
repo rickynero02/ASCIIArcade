@@ -58,7 +58,7 @@ void Game::play()
         attron(COLOR_PAIR(1));
         mvprintw(0, 0, "Current Level:");
         attroff(COLOR_PAIR(1));
-        mvprintw(0, 20, "%3d", map_pos);
+        mvprintw(0, 15, "%3d", map_pos);
         refresh();
 
         ch = wgetch(current_win);
@@ -70,6 +70,11 @@ void Game::play()
 
         current_map->updateState(ch, tick);
 
+        if (player->isDead) {
+            showGameOver();
+            break;
+        }
+
         if (player->loadNextMap) {
             generateNewMap();
         }
@@ -80,8 +85,8 @@ void Game::play()
             player->loadPreviousMap = false;
         }
 
-        tick = (tick % 10) + 1;
-        napms(10);
+        tick = (tick % 15) + 1;
+        napms(15);
     }
 }
 
@@ -202,5 +207,52 @@ void Game::showInfo()
     wrefresh(w);
 
     delwin(w);
+    run();
+}
+
+void Game::showGameOver() {
+    clear();
+    refresh();
+
+    attron(COLOR_PAIR(1));
+    mvprintw(5, 1, "             GGGGGGGGGGGGG               AAA               MMMMMMMM               MMMMMMMMEEEEEEEEEEEEEEEEEEEEEE");
+    mvprintw(6, 1, "          GGG::::::::::::G              A:::A              M:::::::M             M:::::::ME::::::::::::::::::::E");
+    mvprintw(7, 1, "        GG:::::::::::::::G             A:::::A             M::::::::M           M::::::::ME::::::::::::::::::::E");
+    mvprintw(8, 1, "       G:::::GGGGGGGG::::G            A:::::::A            M:::::::::M         M:::::::::MEE::::::EEEEEEEEE::::E");
+    mvprintw(9, 1, "      G:::::G       GGGGGG           A:::::::::A           M::::::::::M       M::::::::::M  E:::::E       EEEEEE");
+    mvprintw(10, 1, "     G:::::G                        A:::::A:::::A          M:::::::::::M     M:::::::::::M  E:::::E");
+    mvprintw(11, 1, "     G:::::G                       A:::::A A:::::A         M:::::::M::::M   M::::M:::::::M  E::::::EEEEEEEEEE");
+    mvprintw(12, 1, "     G:::::G    GGGGGGGGGG        A:::::A   A:::::A        M::::::M M::::M M::::M M::::::M  E:::::::::::::::E");
+    mvprintw(13, 1, "     G:::::G    G::::::::G       A:::::A     A:::::A       M::::::M  M::::M::::M  M::::::M  E:::::::::::::::E");
+    mvprintw(14, 1, "     G:::::G    GGGGG::::G      A:::::AAAAAAAAA:::::A      M::::::M   M:::::::M   M::::::M  E::::::EEEEEEEEEE");
+    mvprintw(15, 1, "     G:::::G        G::::G     A:::::::::::::::::::::A     M::::::M    M:::::M    M::::::M  E:::::E");
+    mvprintw(16, 1, "      G:::::G       G::::G    A:::::AAAAAAAAAAAAA:::::A    M::::::M     MMMMM     M::::::M  E:::::E       EEEEEE");
+    mvprintw(17, 1, "       G:::::GGGGGGGG::::G   A:::::A             A:::::A   M::::::M               M::::::MEE::::::EEEEEEEE:::::E");
+    mvprintw(18, 1, "        GG:::::::::::::::G  A:::::A               A:::::A  M::::::M               M::::::ME::::::::::::::::::::E");
+    mvprintw(19, 1, "          GGG::::::GGG:::G A:::::A                 A:::::A M::::::M               M::::::ME::::::::::::::::::::E");
+    mvprintw(20, 1, "             GGGGGG   GGGGAAAAAAA                   AAAAAAAMMMMMMMM               MMMMMMMMEEEEEEEEEEEEEEEEEEEEEE");
+
+    mvprintw(22, 50, "          OOOOOOOOO     VVVVVVVV           VVVVVVVVEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR");
+    mvprintw(23, 50, "        OO:::::::::OO   V::::::V           V::::::VE::::::::::::::::::::ER::::::::::::::::R");
+    mvprintw(24, 50, "      OO:::::::::::::OO V::::::V           V::::::VE::::::::::::::::::::ER::::::RRRRRR:::::R");
+    mvprintw(25, 50, "     O:::::::OOO:::::::OV::::::V           V::::::VEE::::::EEEEEEEEE::::ERR:::::R     R:::::R");
+    mvprintw(26, 50, "     O::::::O   O::::::O V:::::V           V:::::V   E:::::E       EEEEEE  R::::R     R:::::R");
+    mvprintw(27, 50, "     O:::::O     O:::::O  V:::::V         V:::::V    E:::::E               R::::R     R:::::R");
+    mvprintw(28, 50, "     O:::::O     O:::::O   V:::::V       V:::::V     E::::::EEEEEEEEEE     R::::RRRRRR:::::R");
+    mvprintw(29, 50, "     O:::::O     O:::::O    V:::::V     V:::::V      E:::::::::::::::E     R:::::::::::::RR");
+    mvprintw(30, 50, "     O:::::O     O:::::O     V:::::V   V:::::V       E:::::::::::::::E     R::::RRRRRR:::::R");
+    mvprintw(31, 50, "     O:::::O     O:::::O      V:::::V V:::::V        E::::::EEEEEEEEEE     R::::R     R:::::R");
+    mvprintw(32, 50, "     O:::::O     O:::::O       V:::::V:::::V         E:::::E               R::::R     R:::::R");
+    mvprintw(33, 50, "     O::::::O   O::::::O        V:::::::::V          E:::::E       EEEEEE  R::::R     R:::::R");
+    mvprintw(34, 50, "     O:::::::OOO:::::::O         V:::::::V         EE::::::EEEEEEEE:::::ERR:::::R     R:::::R");
+    mvprintw(35, 50, "      OO:::::::::::::OO           V:::::V          E::::::::::::::::::::ER::::::R     R:::::R");
+    mvprintw(36, 50, "        OO:::::::::OO              V:::V           E::::::::::::::::::::ER::::::R     R:::::R");
+    mvprintw(37, 50, "          OOOOOOOOO                 VVV            EEEEEEEEEEEEEEEEEEEEEERRRRRRRR     RRRRRRR");
+    attron(COLOR_PAIR(1));
+
+    mvprintw(43, 1, "Premi ENTER per tornare al menu");
+
+    int ch;
+    while((ch = getch()) != 10) {}
     run();
 }

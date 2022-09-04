@@ -11,6 +11,7 @@ private:
 public:
     bool loadNextMap = false;
     bool loadPreviousMap = false;
+    bool isDead = false;
 
     Player() : ActiveEntity(nullptr, 0, 0, '@', 
         direction::xaxis, verse::positive, 20, 2) {}

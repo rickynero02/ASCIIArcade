@@ -3,6 +3,8 @@
 #include "object.hpp"
 #include "state.hpp"
 
+#include <memory>
+
 enum direction {
     xaxis, yaxis
 };
@@ -22,9 +24,13 @@ public:
         : Object(w, x, y, icon), dir(dir), v(v) {}
     
     virtual ~Entity() {}
+
+    direction getDirection() const { return dir; }
+    verse getVerse() const { return v; }
 };
 
-class ActiveEntity : public Entity {
+class ActiveEntity : public Entity, 
+    public std::enable_shared_from_this<ActiveEntity> {
 
 protected:
     int health, damage;
@@ -40,4 +46,6 @@ public:
     int getDamage() const { return damage; }
     void setHealth(int h) { health = h; }
     void setDamage(int d) { damage = d; }
+
+    virtual void shoot(State* s, char ch);
 };

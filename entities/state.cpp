@@ -7,8 +7,8 @@ void State::add(std::shared_ptr<Object> entity) {
 }
 
 void State::updateAll(int t) {
-    for (std::shared_ptr<Object>& entity : entities) {
-        entity->update(this, t);
+    for (int i = 0; i < entities.size(); i++) {
+        entities[i]->update(this, t);
     }
 }
 
@@ -20,7 +20,7 @@ void State::drawAll() {
 }
 
 void State::clear() {
-    std::erase_if(entities, [](std::shared_ptr<Object> entity) {
+    std::erase_if(entities, [](std::shared_ptr<Object>& entity) {
         return entity->getIcon() == ' ';
     });
 }
@@ -35,5 +35,5 @@ std::shared_ptr<ActiveEntity> State::getEntity(int x, int y, char ch) {
             found = entity;
         }
     }
-    return std::dynamic_pointer_cast<ActiveEntity> (found);
+    return std::dynamic_pointer_cast<ActiveEntity>(found);
 }

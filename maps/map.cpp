@@ -51,7 +51,7 @@ void Map::updateState(int ch, int tick) {
     state->drawAll();
     info->updateInfo();
 
-    if (state->getPlayer()->getHasKey()) {
+    if (p->getHasKey()) {
         mvwprintw(win, 0, 10, "         ");
         isCleared = true;
     }
@@ -69,7 +69,7 @@ void Map::createBossEenemy()
     if (posch == ' ' && y < 30 && x < 70 && x > 0 && y > 0)
     {
         auto boss = std::make_shared<BossEnemy>(win, x, y, 
-            direction::xaxis, verse::negative);
+            direction::yaxis, verse::positive);
         state->add(boss);
     }
 }
