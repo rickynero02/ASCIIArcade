@@ -214,6 +214,8 @@ void Game::showGameOver() {
     clear();
     refresh();
 
+    mvprintw(1, 1, "Premi ENTER per tornare al menu");
+
     attron(COLOR_PAIR(1));
     mvprintw(5, 1, "             GGGGGGGGGGGGG               AAA               MMMMMMMM               MMMMMMMMEEEEEEEEEEEEEEEEEEEEEE");
     mvprintw(6, 1, "          GGG::::::::::::G              A:::A              M:::::::M             M:::::::ME::::::::::::::::::::E");
@@ -249,8 +251,6 @@ void Game::showGameOver() {
     mvprintw(36, 50, "        OO:::::::::OO              V:::V           E::::::::::::::::::::ER::::::R     R:::::R");
     mvprintw(37, 50, "          OOOOOOOOO                 VVV            EEEEEEEEEEEEEEEEEEEEEERRRRRRRR     RRRRRRR");
     attron(COLOR_PAIR(1));
-
-    mvprintw(43, 1, "Premi ENTER per tornare al menu");
 
     int ch;
     while((ch = getch()) != 10) {}

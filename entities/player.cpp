@@ -15,6 +15,7 @@ void Player::update(State* state, int ch) {
 
     if (y == 29) {
         loadPreviousMap = true;
+        mvwaddch(container, y, x, ' ');
         y = 28;
         return;
     }
