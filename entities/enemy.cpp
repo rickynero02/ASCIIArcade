@@ -48,7 +48,7 @@ void BaseEnemy::update(State* state, int t) {
         auto player = state->getPlayer();
         move(player);
 
-        if (rand() % 5 == 0) {
+        if (rand() % 3 == 0) {
             shoot(state, '*');
         }
     }
@@ -64,7 +64,7 @@ void BossEnemy::update(State* state, int t) {
     if (t == 1) {
         move(player);
 
-        if (rand() % 3 == 0) {
+        if (rand() % 2 == 0) {
             shoot(state, '*');
         }
     }
