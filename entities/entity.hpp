@@ -45,7 +45,11 @@ public:
     int getHealth() const { return health; }
     int getDamage() const { return damage; }
     void setHealth(int h) { health = h; }
-    void setDamage(int d) { damage = d; }
+    void setDamage(int d) { 
+        if (d >= 0) {
+            damage = d;
+        } 
+    }
 
     virtual void shoot(State* s, char ch);
 };
